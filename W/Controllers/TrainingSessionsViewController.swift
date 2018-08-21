@@ -8,16 +8,6 @@
 
 import UIKit
 
-class TrainingSessionTableViewCell : UITableViewCell {
-    
-    @IBOutlet weak var typeOfRun: UILabel!
-    @IBOutlet weak var timeOfDay: UILabel!
-    @IBOutlet weak var distance: UILabel!
-    @IBOutlet weak var runImage: UIImageView!
-    @IBOutlet weak var coachComments: UILabel!
-    
-}
-
 class TrainingSessionsViewController: UIViewController {
 
     @IBOutlet weak var DatePicker: UIDatePicker!
@@ -34,11 +24,11 @@ class TrainingSessionsViewController: UIViewController {
         let dateRequested = DatePicker.date
         getTrainingSessionClient().getSessionsFor(date: dateRequested){ trainingSession, error in
             guard error == nil else {
-                print(error)
+                self.presentAlert(alertTitle: "Connection Error", alertMessage: error!.localizedDescription)
                 return
             }
             guard trainingSession?.isEmpty == false else {
-                print("No training for Today!")
+                self.presentAlert(alertTitle: "No sessions for today!", alertMessage: "Let's go enjoy yummy food :)")
                 return
             }
             self.trainingSessionsToRender = trainingSession
@@ -53,6 +43,12 @@ class TrainingSessionsViewController: UIViewController {
             return trainingSessionClient!
         }
         return TrainingSessionClient()
+    }
+    
+    func presentAlert(alertTitle: String, alertMessage: String) {
+        let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alert, animated: true)
     }
 
 }
@@ -69,7 +65,7 @@ extension TrainingSessionsViewController : UITableViewDataSource, UITableViewDel
         let currentTrainingSession = trainingSessionsToRender![indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellReuseIdentifier", for: indexPath) as! TrainingSessionTableViewCell
         cell.coachComments.text = currentTrainingSession.coachComments
-        cell.distance.text = String(currentTrainingSession.distanceInKm)
+        cell.distance.text = String(currentTrainingSession.distanceInKm) + " KM"
         cell.timeOfDay.text = currentTrainingSession.timeOfDay.rawValue
         cell.typeOfRun.text = currentTrainingSession.type.rawValue.uppercased()
         cell.runImage.image = UIImage(named: "easy-running")

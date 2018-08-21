@@ -14,7 +14,7 @@ class TrainingSessionClient {
     
     func getSessionsFor(date: Date, onComplete: @escaping ([TrainingSession]?, Error?) -> Void) -> Void {
         let config = AppConfig()
-        let requestParams = ["date": "01/01/2018"]
+        let requestParams = ["date": formatDate(date: date)]
         Alamofire.request("\(config.trainingSessionHost)/training_sessions", method: .get, parameters: requestParams, encoding: URLEncoding.default, headers: nil)
             .validate()
             .responseJSON { response in
@@ -54,5 +54,10 @@ class TrainingSessionClient {
         }
     }
     
+    private func formatDate(date :Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd/MM/yyyy"
+        return formatter.string(from: date)
+    }
 }
 

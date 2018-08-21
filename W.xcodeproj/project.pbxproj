@@ -23,6 +23,7 @@
 		83478EA52128358000398053 /* TrainingSessionTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83478EA42128358000398053 /* TrainingSessionTableCell.xib */; };
 		83478EA72128379D00398053 /* TrainingSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83478EA62128379D00398053 /* TrainingSession.swift */; };
 		83478EA92129645100398053 /* TrainingSessionClientSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83478EA82129645100398053 /* TrainingSessionClientSpec.swift */; };
+		83944A09212C124100377CA5 /* TrainingSessionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83944A08212C124100377CA5 /* TrainingSessionTableViewCell.swift */; };
 		A561B79F002B01AF494F66CC /* Pods_W.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCAE09522D899DDBC9301571 /* Pods_W.framework */; };
 		FAB1A1071928CD400A86BD10 /* Pods_WUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D1B286091EE19E9E4D85357 /* Pods_WUITests.framework */; };
 /* End PBXBuildFile section */
@@ -68,6 +69,7 @@
 		83478EA42128358000398053 /* TrainingSessionTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrainingSessionTableCell.xib; sourceTree = "<group>"; };
 		83478EA62128379D00398053 /* TrainingSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingSession.swift; sourceTree = "<group>"; };
 		83478EA82129645100398053 /* TrainingSessionClientSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingSessionClientSpec.swift; sourceTree = "<group>"; };
+		83944A08212C124100377CA5 /* TrainingSessionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingSessionTableViewCell.swift; sourceTree = "<group>"; };
 		8622A34FC4BB1037C5BF4FDC /* Pods-WUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WUITests/Pods-WUITests.release.xcconfig"; sourceTree = "<group>"; };
 		A365A6F43F8BD86D14594C2C /* Pods-WUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WUITests/Pods-WUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		AF0842102B8F5AB61FD65A1D /* Pods-W.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-W.release.xcconfig"; path = "Pods/Target Support Files/Pods-W/Pods-W.release.xcconfig"; sourceTree = "<group>"; };
@@ -226,6 +228,7 @@
 			isa = PBXGroup;
 			children = (
 				83478EA42128358000398053 /* TrainingSessionTableCell.xib */,
+				83944A08212C124100377CA5 /* TrainingSessionTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -489,6 +492,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83944A09212C124100377CA5 /* TrainingSessionTableViewCell.swift in Sources */,
 				83478E9A21282A7500398053 /* TrainingSessionClient.swift in Sources */,
 				8329658921281514006D2B05 /* AppConfig.swift in Sources */,
 				83478EA72128379D00398053 /* TrainingSession.swift in Sources */,

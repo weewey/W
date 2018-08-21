@@ -1,0 +1,13 @@
+current directory: /Users/yewwee/personalProjects/TrainingSessions/W/backend-stubs/.local/ruby/2.3.0/gems/json-2.1.0/ext/json
+/System/Library/Frameworks/Ruby.framework/Versions/2.3/usr/bin/ruby -r ./siteconf20180821-25227-wy1jl4.rb extconf.rb
+creating Makefile
+
+current directory: /Users/yewwee/personalProjects/TrainingSessions/W/backend-stubs/.local/ruby/2.3.0/gems/json-2.1.0/ext/json
+make "DESTDIR=" clean
+
+current directory: /Users/yewwee/personalProjects/TrainingSessions/W/backend-stubs/.local/ruby/2.3.0/gems/json-2.1.0/ext/json
+make "DESTDIR="
+make: Nothing to be done for `all'.
+
+current directory: /Users/yewwee/personalProjects/TrainingSessions/W/backend-stubs/.local/ruby/2.3.0/gems/json-2.1.0/ext/json
+make "DESTDIR=" install

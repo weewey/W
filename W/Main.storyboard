@@ -107,7 +107,7 @@
                                     <action selector="getTrainingPlanPressed:" destination="tyR-Zc-zvA" eventType="touchUpInside" id="OiL-6d-xTO"/>
                                 </connections>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="500" sectionHeaderHeight="-1" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zc4-Of-jZZ">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="400" estimatedRowHeight="2" sectionHeaderHeight="-1" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zc4-Of-jZZ">
                                 <rect key="frame" x="0.0" y="334" width="414" height="402"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -137,8 +137,8 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coach Comments" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h5w-0y-owx">
-                                                    <rect key="frame" x="20.000000000000007" y="339" width="121.66666666666669" height="18"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coach Comments" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h5w-0y-owx">
+                                                    <rect key="frame" x="20" y="339" width="374" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -152,11 +152,13 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="5F3-IW-kzE" firstAttribute="top" secondItem="3cu-bp-xz4" secondAttribute="bottom" constant="10" id="37K-9b-4QG"/>
+                                                <constraint firstItem="h5w-0y-owx" firstAttribute="leading" secondItem="W03-Yt-6z1" secondAttribute="leadingMargin" id="4Pc-lP-6VR"/>
                                                 <constraint firstItem="h5w-0y-owx" firstAttribute="leading" secondItem="W03-Yt-6z1" secondAttribute="leadingMargin" id="9TP-qd-G83"/>
                                                 <constraint firstItem="3cu-bp-xz4" firstAttribute="top" secondItem="W03-Yt-6z1" secondAttribute="topMargin" id="AlQ-ta-0fh"/>
                                                 <constraint firstItem="5F3-IW-kzE" firstAttribute="leading" secondItem="W03-Yt-6z1" secondAttribute="leadingMargin" id="DlY-Rq-7yO"/>
                                                 <constraint firstItem="3cu-bp-xz4" firstAttribute="leading" secondItem="W03-Yt-6z1" secondAttribute="leadingMargin" id="Ehz-gs-b5k"/>
                                                 <constraint firstItem="K8Z-yc-cku" firstAttribute="top" secondItem="3cu-bp-xz4" secondAttribute="bottom" constant="10" id="OBr-iI-Paj"/>
+                                                <constraint firstItem="h5w-0y-owx" firstAttribute="trailing" secondItem="W03-Yt-6z1" secondAttribute="trailingMargin" id="Wkx-mj-OO0"/>
                                                 <constraint firstAttribute="trailing" secondItem="Lm2-4c-FA2" secondAttribute="trailing" constant="15" id="kUN-NV-iyJ"/>
                                                 <constraint firstItem="Lm2-4c-FA2" firstAttribute="leading" secondItem="W03-Yt-6z1" secondAttribute="leading" constant="15" id="lrN-4q-4eF"/>
                                                 <constraint firstItem="K8Z-yc-cku" firstAttribute="leading" secondItem="5F3-IW-kzE" secondAttribute="trailing" constant="10" id="q0q-Ju-Zr3"/>
@@ -169,7 +171,7 @@
                                             <outlet property="distance" destination="K8Z-yc-cku" id="By7-i4-16a"/>
                                             <outlet property="runImage" destination="Lm2-4c-FA2" id="pK4-in-LQt"/>
                                             <outlet property="timeOfDay" destination="5F3-IW-kzE" id="Nuj-O1-b4D"/>
-                                            <outlet property="typeOfRun" destination="3cu-bp-xz4" id="SIi-eO-VH6"/>
+                                            <outlet property="typeOfRun" destination="3cu-bp-xz4" id="THC-Yp-iqg"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
