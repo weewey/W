@@ -18,7 +18,6 @@ class TrainingSessionClient {
         Alamofire.request("\(config.trainingSessionHost)/training_sessions", method: .get, parameters: requestParams, encoding: URLEncoding.default, headers: nil)
             .validate()
             .responseJSON { response in
-                print(response.result)
                 switch response.result {
                 case .success:
                     let (trainingSessions, error) = self.parseObjToTrainingSessions(obj: response.data)
@@ -26,8 +25,8 @@ class TrainingSessionClient {
                         onComplete(nil, error)
                         return
                     }
-                    let expectedTrainingSession = TrainingSession(date: "01/01/2018", distanceInKm: 10, coachComments: "test", type: .easy, timeOfDay: .AM)
-                    onComplete([expectedTrainingSession], nil)
+                    print(trainingSessions)
+                    onComplete(trainingSessions, nil)
                 case.failure(let error):
                     onComplete(nil, error)
                 }
@@ -37,8 +36,12 @@ class TrainingSessionClient {
     private func parseObjToTrainingSessions(obj: Data?) ->([TrainingSession]?, Error?) {
         do {
             let trainingSessionsObj = try JSON.init(data: obj!)
+            print("in parseObjToTrainingSessions")
+            print(trainingSessionsObj)
             var arrayOfTrainingSessions: [TrainingSession]? = []
             for (_, trainingSession) in trainingSessionsObj["trainingSessions"] {
+                print("in the loop")
+                print(trainingSession)
                 arrayOfTrainingSessions!.append(TrainingSession(date: trainingSession["date"].stringValue,
                                                                distanceInKm: trainingSession["distanceInKm"].intValue,
                                                                coachComments: trainingSession["coachComments"].stringValue,
