@@ -15,9 +15,19 @@ class TrainingSessionsViewController: UIViewController {
     var trainingSessionClient: TrainingSessionClient?
     @IBOutlet weak var tableView: UITableView!
     var trainingSessionsToRender : [TrainingSession]?
+    let showMoreDetailsSegue = "showMoreDetails"
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == showMoreDetailsSegue {
+            let destination = segue.destination as? TrainingSessionDetailsViewController
+            let trainingSessionIndex = tableView.indexPathForSelectedRow?.row
+            destination!.trainingSession = trainingSessionsToRender![trainingSessionIndex!]
+            destination!.trainingSessionClient = getTrainingSessionClient()
+        }
     }
     
     @IBAction func getTrainingPlanPressed(_ sender: Any) {
@@ -75,6 +85,7 @@ extension TrainingSessionsViewController : UITableViewDataSource, UITableViewDel
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let indexPath = tableView.indexPathForSelectedRow
         let currentCell = tableView.cellForRow(at: indexPath!) as! TrainingSessionTableViewCell
+        tableView.deselectRow(at: indexPath!, animated: false)
         print(currentCell.coachComments.text)
     }
 }

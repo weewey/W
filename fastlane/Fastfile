@@ -1,0 +1,10 @@
+default_platform(:ios)
+
+platform :ios do
+  desc "Run tests"
+  lane :tests do
+    run_tests(workspace: "W.xcworkspace",
+           devices: ["iPhone 8"],
+           scheme: "W")
+  end
+end

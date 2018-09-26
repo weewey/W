@@ -9,18 +9,28 @@
 import Foundation
 
 struct TrainingSession {
-    let date: String
-    let distanceInKm: Int
+    let id :String
+    var date: String
+    var distanceInKm: Float
     let coachComments: String
     let type: TrainingCategory
-    let timeOfDay : TimeOfDay
+    var timeOfDay : TimeOfDay
+    var executedWorkoutPace: String?
+    var heartRate: Int?
+    var runDuration: Int?
+    var feedback: String?
     
-    init(date: String, distanceInKm: Int, coachComments: String, type: TrainingCategory, timeOfDay: TimeOfDay) {
+    init(id: String, date: String, distanceInKm: Float, coachComments: String, type: TrainingCategory, timeOfDay: TimeOfDay, executedWorkoutPace: String? = nil, heartRate: Int? = nil, runDuration: Int? = nil, feedback: String? = nil) {
+        self.id = id
         self.date = date
         self.distanceInKm = distanceInKm
         self.coachComments = coachComments
         self.type = type
         self.timeOfDay = timeOfDay
+        self.executedWorkoutPace = executedWorkoutPace
+        self.heartRate = heartRate
+        self.runDuration = runDuration
+        self.feedback = feedback
     }
 }
 
@@ -30,6 +40,7 @@ enum TrainingCategory: String {
     case longRun = "longRun"
     case tempoRun = "tempoRun"
     case fartlek = "fartlek"
+    case race = "race"
 }
 
 enum TimeOfDay: String {

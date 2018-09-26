@@ -12,22 +12,24 @@ import OHHTTPStubs
 @testable import W
 
 class TrainingSessionClientSpec: QuickSpec {
+    
     override func spec() {
         let trainingSessionClient = TrainingSessionClient()
-        let expectedTrainingSession = TrainingSession(date: "01/01/2018", distanceInKm: 10, coachComments: "test", type: .easy, timeOfDay: .AM)
-        let returnedTrainingSessions =
-            [ "trainingSessions":
-                [[ "date": expectedTrainingSession.date,
-                  "type": expectedTrainingSession.type.rawValue,
-                  "distanceInKm": String(expectedTrainingSession.distanceInKm),
-                  "timeOfDay": expectedTrainingSession.timeOfDay.rawValue,
-                  "coachComments": expectedTrainingSession.coachComments
-                ]]
-        ]
+        
         describe("#getSessionsFor"){
+            let expectedTrainingSession = TrainingSession(id:"training-session-uuid", date: "01/01/2018", distanceInKm: 10, coachComments: "test", type: .easy, timeOfDay: .AM)
+            let returnedTrainingSessions =
+                [ "trainingSessions":
+                    [[ "date": expectedTrainingSession.date,
+                       "type": expectedTrainingSession.type.rawValue,
+                       "distanceInKm": String(expectedTrainingSession.distanceInKm),
+                       "timeOfDay": expectedTrainingSession.timeOfDay.rawValue,
+                       "coachComments": expectedTrainingSession.coachComments
+                        ]]
+            ]
             context("when the request is SUCCESSFUL") {
                 beforeEach {
-                    stub(condition: isPath("/training_sessions")) { _ in
+                    stub(condition: isPath("/training_sessions") && isMethodGET() ) { _ in
                         return OHHTTPStubsResponse(jsonObject: returnedTrainingSessions, statusCode: 200, headers: nil)
                     }
                 }
@@ -46,7 +48,7 @@ class TrainingSessionClientSpec: QuickSpec {
             }
             context("when the request is UNSUCCESSFUL") {
                 beforeEach {
-                    stub(condition: isPath("/training_sessions")) { _ in
+                    stub(condition: isPath("/training_sessions") && isMethodGET()) { _ in
                         return OHHTTPStubsResponse(jsonObject: [] , statusCode: 400, headers: nil)
                     }
                 }
@@ -62,6 +64,29 @@ class TrainingSessionClientSpec: QuickSpec {
             }
         }
         
+        func isRequestBodyCorrect() -> OHHTTPStubsTestBlock {
+            return { request in
+                let requestBody = request.ohhttpStubs_httpBody
+                let bodyJson = String.init(data: requestBody!, encoding: String.Encoding.utf8)
+                return bodyJson == ""
+            }
+        }
+        
+        describe("#updateSessionFor") {
+            let trainingSession = TrainingSession(id:"training-session-uuid", date: "01/01/2018", distanceInKm: 10, coachComments: "test", type: .easy, timeOfDay: .AM)
+            beforeEach {
+                stub(condition: isPath("/training_session") && isMethodPUT() && isRequestBodyCorrect()) { _ in
+                    return OHHTTPStubsResponse(jsonObject: {}, statusCode: 200, headers: nil)
+                }
+            }
+            it("sends the updated trainingSession in the JSON body") {
+                waitUntil(timeout: 1){ done in
+                    trainingSessionClient.updateSessionFor(trainingSession: trainingSession) { error in
+                        expect(error!).to(beNil())
+                    }
+                }
+            }
+        }
+        
     }
-    
 }
