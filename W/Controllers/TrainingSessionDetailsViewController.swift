@@ -63,8 +63,14 @@ class TrainingSessionDetailsViewController: UIViewController, UITextViewDelegate
     }
     
     @IBAction func updateTrainingSessionButtonPressed(_ sender: Any) {
-        trainingSessionClient!.updateSessionFor(trainingSession: trainingSession!){ result in
-            print(result)
+        trainingSessionClient!.updateSessionFor(trainingSession: trainingSession!){ error in
+            if error != nil {
+                print(error)
+                print("Training session update failed!")
+                return
+            }
+            self.presentAlert(alertTitle: "Update Status", alertMessage: "Training Session Update Successfully!")
+            print("Update success")
         }
     }
     
@@ -95,6 +101,13 @@ class TrainingSessionDetailsViewController: UIViewController, UITextViewDelegate
         if trainingSession?.feedback != nil{
             feedback.text = trainingSession!.feedback!
         }
+    }
+    
+    func presentAlert(alertTitle: String, alertMessage: String) {
+        let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alert, animated: true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
 }

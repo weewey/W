@@ -10,6 +10,8 @@ import Foundation
 import SwiftyJSON
 import Alamofire
 
+typealias RequestBody = [String: NSMutableDictionary]
+
 class TrainingSessionClient {
     let config = AppConfig()
     
@@ -33,26 +35,37 @@ class TrainingSessionClient {
     }
     
     func updateSessionFor(trainingSession: TrainingSession, onComplete: @escaping (Error?) -> Void ) -> Void {
-        let updatedTrainingSession : [String: Any] =
-            [ "training_session" : [
-                "distance_in_km" : trainingSession.distanceInKm,
-                "duration": trainingSession.runDuration,
-                "feedback": trainingSession.feedback,
-                "heart_rate": trainingSession.heartRate,
-                "executed_workout_pace": trainingSession.executedWorkoutPace
-                ]
-        ]
-        Alamofire.request("\(config.trainingSessionHost)/training_sessions/\(trainingSession.id)", method: .put, parameters: updatedTrainingSession, encoding: URLEncoding.default, headers: nil)
-            .validate()
-            .responseJSON { response in
+        Alamofire.request("\(config.trainingSessionHost)/training_sessions/\(trainingSession.id)", method: .put, parameters: trainingSessionRequestBody(trainingSession: trainingSession), encoding: JSONEncoding.default, headers: nil)
+            .validate(statusCode: 200..<300)
+            .responseData { response in
                 switch response.result {
                 case .success:
                     onComplete(nil)
                 case .failure(let error):
+                    print("TrainingSessionClient - Update Failed")
                     onComplete(error)
                 }
         }
-        
+    }
+    
+    func trainingSessionRequestBody(trainingSession: TrainingSession) -> RequestBody {
+        var requestParams: RequestBody
+        requestParams = ["training_session" : ["distance_in_km" : String(trainingSession.distanceInKm),
+                                               "time_of_day": trainingSession.timeOfDay.rawValue
+            ]]
+        if trainingSession.runDuration != nil {
+            requestParams["training_session"]!["run_duration"] = String(trainingSession.runDuration!)
+        }
+        if trainingSession.feedback != nil {
+            requestParams["training_session"]!["feedback"] = trainingSession.feedback!
+        }
+        if trainingSession.heartRate != nil {
+            requestParams["training_session"]!["heart_rate"] = String(trainingSession.heartRate!)
+        }
+        if trainingSession.executedWorkoutPace != nil {
+            requestParams["training_session"]!["executed_workout_pace"] = trainingSession.executedWorkoutPace!
+        }
+        return requestParams
     }
     
     private func parseObjToTrainingSessions(obj: Data?) ->([TrainingSession]?, Error?) {

@@ -72,18 +72,47 @@ class TrainingSessionClientSpec: QuickSpec {
             }
         }
         
-        describe("#updateSessionFor") {
-            let trainingSession = TrainingSession(id:"training-session-uuid", date: "01/01/2018", distanceInKm: 10, coachComments: "test", type: .easy, timeOfDay: .AM)
-            beforeEach {
-                stub(condition: isPath("/training_session") && isMethodPUT() && isRequestBodyCorrect()) { _ in
-                    return OHHTTPStubsResponse(jsonObject: {}, statusCode: 200, headers: nil)
-                }
+//        describe("#updateSessionFor") {
+//            let trainingSession = TrainingSession(id:"training-session-uuid", date: "01/01/2018", distanceInKm: 10, coachComments: "test", type: .easy, timeOfDay: .AM)
+//            beforeEach {
+//                stub(condition: isPath("/training_session") && isMethodPUT() && isRequestBodyCorrect()) { _ in
+//                    return OHHTTPStubsResponse(jsonObject: {}, statusCode: 200, headers: nil)
+//                }
+//            }
+//            it("sends the updated trainingSession in the JSON body") {
+//                waitUntil(timeout: 1){ done in
+//                    trainingSessionClient.updateSessionFor(trainingSession: trainingSession) { error in
+//                        expect(error!).to(beNil())
+//                    }
+//                }
+//            }
+//        }
+        
+        describe("trainingSessionRequestBody") {
+            let trainingSession = TrainingSession(id:"training-session-uuid", date: "01/01/2018", distanceInKm: 10, coachComments: "test", type: .easy, timeOfDay: .AM, heartRate: 140, feedback: "easy easy")
+            let expectRequestBody: RequestBody = ["training_session": [
+                "distance_in_km": String(trainingSession.distanceInKm),
+                "time_of_day": trainingSession.timeOfDay.rawValue,
+                "feedback": trainingSession.feedback!,
+                "heart_rate": String(trainingSession.heartRate!)
+                ]]
+            
+            it("returns the expected request body"){
+                let requestBody = trainingSessionClient.trainingSessionRequestBody(trainingSession: trainingSession)
+                expect(requestBody).to(equal(expectRequestBody))
             }
-            it("sends the updated trainingSession in the JSON body") {
-                waitUntil(timeout: 1){ done in
-                    trainingSessionClient.updateSessionFor(trainingSession: trainingSession) { error in
-                        expect(error!).to(beNil())
-                    }
+            
+            context("when heartRate does not exist") {
+                let trainingSession = TrainingSession(id:"training-session-uuid", date: "01/01/2018", distanceInKm: 10, coachComments: "test", type: .easy, timeOfDay: .AM, feedback: "easy easy")
+                let expectRequestBody: RequestBody = ["training_session": [
+                    "distance_in_km": String(trainingSession.distanceInKm),
+                    "time_of_day": trainingSession.timeOfDay.rawValue,
+                    "feedback": trainingSession.feedback!
+                    ]]
+                
+                it("does not add it into requestBody") {
+                    let requestBody = trainingSessionClient.trainingSessionRequestBody(trainingSession: trainingSession)
+                    expect(requestBody).to(equal(expectRequestBody))
                 }
             }
         }

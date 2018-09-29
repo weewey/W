@@ -28,8 +28,11 @@ get '/training_sessions' do
   sessions.to_json
 end
 
-put '/training_sessions' do
+put '/training_sessions/:id' do
   puts "TrainingSession Updated - #{params['id']}"
-  puts JSON.parse(request.body)
-  halt 201
+  request.body.rewind
+  training_session_params = JSON.parse(request.body.read)
+  puts training_session_params.inspect
+  status 201
+  body ''
 end
